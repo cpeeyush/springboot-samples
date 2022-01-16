@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+#logging:
+#  pattern:
+#    console: "%d %-5level %logger : %msg%n"
+#  level:
+#    root: WARN
+#    org.springframework: INFO
+#    com.peeyush: INFO
