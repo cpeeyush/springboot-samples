@@ -5,6 +5,8 @@ import com.peeyush.api.dtos.UserSearchResponse;
 import com.peeyush.api.exceptions.NotFoundException;
 import com.peeyush.api.models.User;
 import com.peeyush.api.repositories.UserRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -36,6 +38,13 @@ public class UserService {
         if (!StringUtils.hasText(name)) {
             throw new IllegalArgumentException("Name must not be blank.");
         }
+
+        /*
+            var user = new User();
+            user.setName(name);
+            var users = userRepository.findAll(Example.of(user, ExampleMatcher.matching().withIgnoreCase()));
+        */
+         
 
         var users = userRepository.findByName(name);
 

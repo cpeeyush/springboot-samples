@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/name/{name}")
-    public List<UserSearchResponse> getUsersByName(@PathVariable("name") @NotEmpty final String name) {
+    public List<UserSearchResponse> getUsersByName(@PathVariable("name") final String name) {
 
         return userService.findUserByName(name);
     }
