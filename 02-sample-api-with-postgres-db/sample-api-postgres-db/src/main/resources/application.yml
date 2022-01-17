@@ -8,3 +8,14 @@ logging:
     root: WARN
     org.springframework: INFO
     com.peeyush: INFO
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sample-db
+    username: postgres-user
+    password: postgres-password
+    ## connection pool
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
