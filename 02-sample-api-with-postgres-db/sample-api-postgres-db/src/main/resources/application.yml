@@ -5,10 +5,13 @@ logging:
   pattern:
     console: "%d %-5level %logger : %msg%n"
   level:
-    root: WARN
+    root: ERROR
     org.springframework: INFO
     com.peeyush: INFO
-
+    org:
+      hibernate:
+        SQL: DEBUG
+        type.descriptor.sql.BasicBinder: TRACE
 
 spring:
   datasource:

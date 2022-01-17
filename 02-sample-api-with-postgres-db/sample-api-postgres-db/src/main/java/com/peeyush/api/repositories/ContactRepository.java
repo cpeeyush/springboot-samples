@@ -1,4 +1,7 @@
 package com.peeyush.api.repositories;
 
-public interface ContactRepository {
+import com.peeyush.api.models.Contact;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ContactRepository extends JpaRepository<Contact, Integer> {
 }

@@ -1,18 +1,16 @@
 package com.peeyush.api.dtos;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class UserRequest {
-    @Pattern(regexp = "^(?!\\s*$).+", message = "must not be blank")
+public class UserSearchResponse {
+
     private String id;
-    @Pattern(regexp = "^(?!\\s*$).+", message = "must not be blank")
-    @Size(min = 1, max = 10)
     private String name;
-    @Positive
     private Integer age;
+    private List<Contact> contacts = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -38,25 +36,34 @@ public class UserRequest {
         this.age = age;
     }
 
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserRequest that = (UserRequest) o;
-        return id.equals(that.id) && name.equals(that.name) && age.equals(that.age);
+        UserSearchResponse that = (UserSearchResponse) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(age, that.age) && Objects.equals(contacts, that.contacts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, age);
+        return Objects.hash(id, name, age, contacts);
     }
 
     @Override
     public String toString() {
-        return "UserRequest{" +
+        return "UserSearchResponse{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", contacts=" + contacts +
                 '}';
     }
 }

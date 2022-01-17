@@ -1,6 +1,7 @@
 package com.peeyush.api.controllers;
 
 import com.peeyush.api.dtos.ErrorResponse;
+import com.peeyush.api.exceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,9 +35,40 @@ public class ApiExceptionHandler {
         var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, errors);
 
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(errorResponse.getCode())
                 .body(errorResponse);
     }
+
+
+    /**
+     * Catcher for IllegalArgumentException.
+     *
+     * @param exception see {@link IllegalArgumentException}
+     * @return see {@link ErrorResponse}
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(final IllegalArgumentException exception) {
+        var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, List.of(exception.getMessage()));
+        return ResponseEntity
+                .status(errorResponse.getCode())
+                .body(errorResponse);
+    }
+
+    /**
+     * Catcher for NotFoundException
+     *
+     * @param exception see {@link NotFoundException}
+     * @return see {@link ErrorResponse}
+     */
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(final NotFoundException exception) {
+        var errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, List.of(exception.getMessage()));
+        return ResponseEntity
+                .status(errorResponse.getCode())
+                .body(errorResponse);
+    }
+
+
 
     /**
      * Catcher for all unhandled exceptions
@@ -49,7 +81,7 @@ public class ApiExceptionHandler {
         log.error(exception.getClass().getName(), exception);
         var errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, List.of("Error Occurred"));
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(errorResponse.getCode())
                 .body(errorResponse);
     }
 }
