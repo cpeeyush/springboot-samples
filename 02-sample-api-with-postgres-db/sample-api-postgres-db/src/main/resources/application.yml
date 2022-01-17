@@ -22,3 +22,7 @@ spring:
     hikari:
       connectionTimeout: 20000
       maximumPoolSize: 5
+
+
+event-hub:
+  hostname: "http://localhost:5252"

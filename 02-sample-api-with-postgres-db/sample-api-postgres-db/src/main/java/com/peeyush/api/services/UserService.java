@@ -1,5 +1,6 @@
 package com.peeyush.api.services;
 
+import com.peeyush.api.configurations.EventHubConfiguration;
 import com.peeyush.api.dtos.Contact;
 import com.peeyush.api.dtos.UserSearchResponse;
 import com.peeyush.api.exceptions.NotFoundException;
@@ -24,6 +25,7 @@ public class UserService {
     }
 
     public UserSearchResponse findUserById(final Integer userId) {
+
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if (optionalUser.isEmpty()) {
@@ -44,7 +46,6 @@ public class UserService {
             user.setName(name);
             var users = userRepository.findAll(Example.of(user, ExampleMatcher.matching().withIgnoreCase()));
         */
-         
 
         var users = userRepository.findByName(name);
 
