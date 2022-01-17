@@ -2,12 +2,14 @@ package com.peeyush.api.controllers;
 
 import com.peeyush.api.dtos.UserSearchResponse;
 import com.peeyush.api.services.UserService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/users")
+@Validated
 public class UserController {
 
 //    @Autowired - Field level injection discouraged generally but still works.
@@ -28,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserSearchResponse getUsersById(@PathVariable("id") final int userId) {
+    public UserSearchResponse getUsersById(@PathVariable("id") @Positive final int userId) {
 
         return userService.findUserById(userId);
     }

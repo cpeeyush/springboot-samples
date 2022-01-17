@@ -10,6 +10,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,27 @@ public class ApiExceptionHandler {
         final List<String> errors = exception.getBindingResult().getFieldErrors()
                 .stream()
                 .map(e -> e.getField() + ":" + e.getDefaultMessage())
+                .collect(Collectors.toList());
+
+        var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, errors);
+
+        return ResponseEntity
+                .status(errorResponse.getCode())
+                .body(errorResponse);
+    }
+
+    /**
+     * Handler for ConstraintViolationException
+     *
+     * @param exception see {@link ConstraintViolationException}
+     * @return see {@link ErrorResponse}
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException exception) {
+
+        final List<String> errors = exception.getConstraintViolations()
+                .stream()
+                .map(e -> e.getPropertyPath() + ":" + e.getMessage())
                 .collect(Collectors.toList());
 
         var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, errors);
@@ -67,7 +89,6 @@ public class ApiExceptionHandler {
                 .status(errorResponse.getCode())
                 .body(errorResponse);
     }
-
 
 
     /**

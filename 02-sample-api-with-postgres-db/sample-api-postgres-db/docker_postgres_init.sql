@@ -15,7 +15,7 @@ INSERT INTO users(user_id, name, age) VALUES
  (7, 'Max', 25);
 
 
-CREATE TABLE contact
+CREATE TABLE contacts
 (
     contact_id integer NOT NULL PRIMARY KEY,
     user_id integer NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE contact
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-INSERT INTO contact(contact_id, user_id, phone, email) VALUES
+INSERT INTO contacts(contact_id, user_id, phone, email) VALUES
  (1, 1, '+0000000001', 'john@example.com'),
  (2, 2, '+0000000002', 'chris@example.com'),
  (3, 3, '+0000000003', 'jack@example.com'),

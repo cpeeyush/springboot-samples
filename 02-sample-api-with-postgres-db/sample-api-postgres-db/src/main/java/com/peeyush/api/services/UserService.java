@@ -39,6 +39,10 @@ public class UserService {
 
         var users = userRepository.findByName(name);
 
+        if(users.isEmpty()) {
+            throw new NotFoundException(String.format("User with name %s not found",name));
+        }
+
         return users.stream()
                 .map(this::toUserResponse).collect(Collectors.toList());
 
