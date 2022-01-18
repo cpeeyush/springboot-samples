@@ -16,11 +16,9 @@ import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 class UserSearchIntegrationTests {
 
     private static final String USER_BY_ID_PATH = "/api/v1/users/{id}";
-    private static final String USER_BY_NAME_PATH = "/api/v1/users/name/{name}";
     private static final String ID_PARAM = "id";
-    private static final String NAME_PARAM = "name";
 
-    private ApiResponseMother apiResponseMother = new ApiResponseMother();
+    private final ApiResponseMother apiResponseMother = new ApiResponseMother();
 
     @LocalServerPort
     private int port;
