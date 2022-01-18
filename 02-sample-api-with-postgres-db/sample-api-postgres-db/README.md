@@ -1,4 +1,8 @@
-# Sample REST API with POSTGRES DB
+# Sample REST API with Postgres DB
+
+- Interacting with Postgres DB using Spring JPA.
+- Unit Testing with mocking and assertions.
+- Integration test with Testcontainers and RestAssured.
 
 ## Start Docker
 
