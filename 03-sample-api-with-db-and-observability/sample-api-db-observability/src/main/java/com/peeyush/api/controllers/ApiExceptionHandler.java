@@ -33,7 +33,10 @@ public class ApiExceptionHandler {
                 .map(e -> e.getField() + ":" + e.getDefaultMessage())
                 .collect(Collectors.toList());
 
-        var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, errors);
+        var errorResponse = ErrorResponse.builder()
+                .withCode(HttpStatus.BAD_REQUEST)
+                .withMessage(errors)
+                .build();
 
         return ResponseEntity
                 .status(errorResponse.getCode())
@@ -54,7 +57,11 @@ public class ApiExceptionHandler {
                 .map(e -> e.getPropertyPath() + ":" + e.getMessage())
                 .collect(Collectors.toList());
 
-        var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, errors);
+        var errorResponse = ErrorResponse.builder()
+                .withCode(HttpStatus.BAD_REQUEST)
+                .withMessage(errors)
+                .build();
+
 
         return ResponseEntity
                 .status(errorResponse.getCode())
@@ -70,7 +77,11 @@ public class ApiExceptionHandler {
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(final IllegalArgumentException exception) {
-        var errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, List.of(exception.getMessage()));
+        var errorResponse = ErrorResponse.builder()
+                .withCode(HttpStatus.BAD_REQUEST)
+                .withMessage(List.of(exception.getMessage()))
+                .build();
+
         return ResponseEntity
                 .status(errorResponse.getCode())
                 .body(errorResponse);
@@ -84,7 +95,10 @@ public class ApiExceptionHandler {
      */
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(final NotFoundException exception) {
-        var errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, List.of(exception.getMessage()));
+        var errorResponse = ErrorResponse.builder()
+                .withCode(HttpStatus.NOT_FOUND)
+                .withMessage(List.of(exception.getMessage()))
+                .build();
         return ResponseEntity
                 .status(errorResponse.getCode())
                 .body(errorResponse);
@@ -100,7 +114,12 @@ public class ApiExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAll(final Exception exception) {
         log.error(exception.getClass().getName(), exception);
-        var errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, List.of("Error Occurred"));
+
+        var errorResponse = ErrorResponse.builder()
+                .withCode(HttpStatus.INTERNAL_SERVER_ERROR)
+                .withMessage(List.of("Error Occurred"))
+                .build();
+
         return ResponseEntity
                 .status(errorResponse.getCode())
                 .body(errorResponse);

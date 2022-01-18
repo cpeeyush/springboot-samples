@@ -1,5 +1,8 @@
 package com.peeyush.api.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "contacts")
+@Data
+@NoArgsConstructor
 public class Contact {
 
     @Id
@@ -24,48 +29,4 @@ public class Contact {
     @Column(name = "user_id")
     private String userId;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contact contact = (Contact) o;
-        return id.equals(contact.id) && Objects.equals(phone, contact.phone) && Objects.equals(email, contact.email) && userId.equals(contact.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, phone, email, userId);
-    }
 }

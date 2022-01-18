@@ -56,20 +56,19 @@ public class UserService {
     }
 
     private UserSearchResponse toUserResponse(User user) {
-        var userSearchResponse = new UserSearchResponse();
-        userSearchResponse.setId(user.getId().toString());
-        userSearchResponse.setName(user.getName());
-        userSearchResponse.setAge(user.getAge());
 
-        userSearchResponse.setContacts(user.getContacts()
-                .stream().map(contact -> {
-                    var contactDto = new Contact();
-                    contactDto.setEmail(contact.getEmail());
-                    contactDto.setPhone(contact.getPhone());
-                    return contactDto;
-                }).collect(Collectors.toList()));
-
-        return userSearchResponse;
+        return UserSearchResponse.builder()
+                .withId(user.getId().toString())
+                .withName(user.getName())
+                .withAge(user.getAge())
+                .withContacts(user.getContacts()
+                        .stream().map(contact -> {
+                            return Contact.builder()
+                                    .withEmail(contact.getEmail())
+                                    .withPhone(contact.getPhone())
+                                    .build();
+                        }).collect(Collectors.toList()))
+                .build();
     }
 
 }
