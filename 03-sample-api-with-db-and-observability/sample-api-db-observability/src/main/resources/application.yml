@@ -29,7 +29,10 @@ management:
   endpoints:
     web:
       exposure:
-          include: health, loggers
+          include: health, loggers, prometheus, threaddump, metrics
+  endpoint:
+    health:
+      show-details: always
   server:
     port: 4004
 
