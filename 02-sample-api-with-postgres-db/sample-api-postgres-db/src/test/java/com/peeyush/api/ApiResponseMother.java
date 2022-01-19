@@ -1,7 +1,9 @@
 package com.peeyush.api;
 
 import com.peeyush.api.dtos.Contact;
+import com.peeyush.api.dtos.ErrorResponse;
 import com.peeyush.api.dtos.UserSearchResponse;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -23,6 +25,13 @@ public class ApiResponseMother {
         userSearchResponse.setContacts(List.of(contact1, contact2));
 
         return userSearchResponse;
+    }
+
+    public ErrorResponse userNotFound(int userId) {
+
+        var errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, List.of(String.format("User with id %d not found", userId)));
+
+        return errorResponse;
     }
 
 }
