@@ -5,7 +5,7 @@ logging:
   pattern:
     console: "%d %-5level %logger : %msg%n"
   level:
-    root: ERROR
+    root: INFO
     org.springframework: INFO
     com.peeyush: INFO
     org:
